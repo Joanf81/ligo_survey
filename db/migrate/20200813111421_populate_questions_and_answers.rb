@@ -5,7 +5,7 @@ class PopulateQuestionsAndAnswers < ActiveRecord::Migration[6.0]
 	survey.each do |survey|
 		q = Question.create(question: survey[:q])
 		survey[:a].each do |answer, points|
-			Answer.create(question_id: q, answer: answer, points: points)
+			Answer.create(question_id: q.id, answer: answer, points: points)
 		end
 	end
   end
