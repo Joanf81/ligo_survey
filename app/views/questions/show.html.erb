@@ -23,7 +23,19 @@
 	</div>
 </div>
 
+<br>
+<br>
 
-<%= link_to 'Back', root_path %>
+<% if prev? %>
+	<%= link_to 'Previous question', previous_question_path %>
+<% end %>
+<br>
+<% if next? %>
+	<%= link_to 'Next question', next_question_path %>
+<% else %>
+	<%= link_to 'Complete survey!', root_path %>
+<% end %>
+
+
 
 <%= javascript_pack_tag 'answer_question' %>
