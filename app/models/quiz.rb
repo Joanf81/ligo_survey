@@ -7,7 +7,7 @@ class Quiz < ApplicationRecord
     has_and_belongs_to_many :discarted_answers, class_name: 'Answer', join_table: 'discarted_answers',
                             foreign_key: 'answer_id', association_foreign_key: 'quiz_id'
 
-    validates :used_wildcards, numerically: { less_than_or_equal_to: MAX_WILDCARDS }
+    validates :used_wildcards, numericality: { less_than_or_equal_to: MAX_WILDCARDS }
 
     def get_selected_answer_for_question(question)
     	selected_answers.where(question_id: question.id).try(:first)
@@ -36,10 +36,20 @@ class Quiz < ApplicationRecord
         !result.nil?
     end
 
-    def use_wildcard
-        if used_wildcards < MAX_WILDCARDS
+    def use_wildcard(question)
+        if can_use_wildcard?
+            worst_answer = question.answers_for_quiz(self).order("points asc").first
 
-            update_column(:used_wildcards, used_wildcards + 1)
+            if discarted_answers << worst_answer
+                update_column(:used_wildcards, used_wildcards + 1)
+                true
+            else
+                false
+            end
         end
+    end
+
+    def can_use_wildcard?
+        used_wildcards < MAX_WILDCARDS
     end
 end
