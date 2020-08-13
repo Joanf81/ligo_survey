@@ -13,6 +13,7 @@ class Quiz < ApplicationRecord
 
     	if selected_answers << answer
     		selected_answers.delete(previous_answer) if previous_answer
+            true
     	else
     		false
     	end
