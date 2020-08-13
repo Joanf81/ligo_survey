@@ -18,4 +18,8 @@ module QuestionsHelper
 	def prev?
 		@question.prev_question?
 	end
+
+	def can_use_wildcard?
+		@quiz.can_use_wildcard?
+	end
 end
