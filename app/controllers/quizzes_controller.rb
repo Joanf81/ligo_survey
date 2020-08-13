@@ -1,5 +1,11 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: [:answer_question]
+  before_action :set_quiz, only: [:show, :answer_question, :complete_quiz]
+
+  def show
+    unless @quiz.completed?
+      redirect_to quiz_question_path(quiz_id: @quiz.id, id: first_question.id)
+    end
+  end
 
   def new
     @quiz = Quiz.new
@@ -10,7 +16,7 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       if @quiz.save
-        format.html { redirect_to quiz_questions_path(@quiz) }
+        format.html { redirect_to quiz_path(@quiz) }
       else
         format.html { render :new }
       end
@@ -33,9 +39,14 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def complete_quiz
+    @quiz.complete!
+    redirect_to quiz_path(@quiz)
+  end
+
   private
     def set_quiz
-      @quiz = Quiz.find(params[:quiz_id])
+      @quiz = Quiz.find(params[:quiz_id] || params[:id])
     end
 
     def quiz_params
@@ -44,5 +55,9 @@ class QuizzesController < ApplicationController
 
     def answer_params
       params.require(:answer).permit(:id)
+    end
+
+    def first_question
+      Question.first
     end
 end
