@@ -3,7 +3,7 @@ class QuizzesController < ApplicationController
 
   def show
     unless @quiz.completed?
-      redirect_to quiz_question_path(quiz_id: @quiz.id, id: first_question.id)
+      redirect_to quiz_question_path(@quiz, first_question)
     end
   end
 
@@ -12,7 +12,7 @@ class QuizzesController < ApplicationController
   end
 
   def create
-    @quiz = Quiz.new(quiz_params)
+    @quiz = Quiz.new(quiz_params.merge(used_wildcards: 0))
 
     respond_to do |format|
       if @quiz.save
