@@ -11,4 +11,32 @@ questions
 4. After submission at the end of the Quiz the user can see the final result
 5. As a Quiz user, I have 2 wildcards. A wildcard can be used in any question at any time. Using a wildcard in any question will remove the worst of the answers from the possible answers list of that question. (The worst answer is calculated based on the answer points)
 
+# Installing and running the server
+
+1. Clone repository:
+```
+  git clone https://github.com/Joanf81/ligo_survey.git
+```
+
+2. Make sure you have Postgresql installed, running, and attending requests on port 5432.
+
+3. Create a new user in Postgress:
+```
+  username: ligo_survey
+  password: 1234
+```
+(Make sure the new user has permission to crate a new database)
+
+4. Execute commnads:
+```
+  bundle install
+  rake db:create
+  rake db:migrate
+  rails server
+ ```
+ 
+ 5. Ready! :)
+
+
+
 
