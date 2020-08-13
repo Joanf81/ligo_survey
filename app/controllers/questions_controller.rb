@@ -1,18 +1,35 @@
 class QuestionsController < ApplicationController
 	before_action :set_quiz
-	before_action :set_question, only: [:show]
+	before_action :set_question, only: [:show, :answer_question]
 
 	def index
 		redirect_to quiz_question_path(quiz_id: @quiz.id, id: first_question.id)
 	end
 
-  # GET /quizzes/1
-  # GET /quizzes/1.json
-  def show
+  def show; end
+
+  def answer_question
+    respond_to do |format|
+      format.json do 
+      	if @answer = Answer.find(answer_params[:id])
+          if @quiz.answer_question(@answer)
+      	    render json: {status: "ok"}
+          else
+            render json: {status: "error"}
+          end
+        else
+          render json: {status: "erorr"}
+        end
+      end
+    end
   end
 
+  def get_selected_answer
+    @quiz.get_selected_answer_for_question(@question)
+  end
+  helper_method :get_selected_answer
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_quiz
     	@quiz = Quiz.find(params[:quiz_id])
     end
@@ -21,9 +38,8 @@ class QuestionsController < ApplicationController
     	@question = Question.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def quiz_params
-      params.require(:quiz).permit(:user_name)
+    def answer_params
+      params.require(:answer).permit(:id)
     end
 
     def first_question

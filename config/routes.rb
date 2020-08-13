@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-	root to: 'quizzes#new'
-  resources :quizzes, only: [:new, :create, :update, :show] do
-  	resources :questions, only: [:index, :show]
-  end
+  root to: 'quizzes#new'
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :quizzes, only: [:new, :create, :update, :show] do
+  	resources :questions, only: [:index, :show] do
+  		put "quizzes/:quiz_id/questions/:id/answer_question", to: 'questions#answer_question', as: :answer_question
+  	end
+  end
 end
