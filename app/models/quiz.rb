@@ -49,7 +49,11 @@ class Quiz < ApplicationRecord
         end
     end
 
+    def total_wildcards
+        MAX_WILDCARDS - used_wildcards
+    end
+
     def can_use_wildcard?
-        used_wildcards < MAX_WILDCARDS
+        total_wildcards > 0
     end
 end

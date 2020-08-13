@@ -24,7 +24,7 @@
 <br>
 <div> 
 	<p>
-		Total wildcards: <%= Quiz::MAX_WILDCARDS - @quiz.used_wildcards %>
+		Total wildcards: <%= @quiz.total_wildcards %>
 	</p>
 	<% if can_use_wildcard? %>
 		<%= link_to 'Use wildcard', quiz_use_wildcard_path(@quiz), method: :post %>
