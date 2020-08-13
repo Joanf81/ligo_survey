@@ -1,3 +1,5 @@
+<% selected_answer = get_selected_answer %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -8,10 +10,13 @@
 	<div>
 		<p><%= @question.question %></p>
 	</div>
-	<div>
+	<div id="answers">
+		<%= hidden_field_tag 'answer_question_path', quiz_question_answer_question_path(@quiz, @question)  %>
 		<% @question.answers.each do |answer| %>
+
 			<div>
-				<%= radio_button_tag :answer, answer.id %>
+				<% answered = selected_answer && selected_answer.id == answer.id %>
+				<%= radio_button_tag :answer, answer.id, answered %>
 				<%= label_tag "answer_#{answer.id}", answer.answer %>
 			</div>
 		<% end %>
@@ -20,3 +25,5 @@
 
 
 <%= link_to 'Back', root_path %>
+
+<%= javascript_pack_tag 'answer_question' %>
