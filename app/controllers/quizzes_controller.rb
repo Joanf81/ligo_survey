@@ -3,9 +3,9 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes
   # GET /quizzes.json
-  def index
-    @quizzes = Quiz.all
-  end
+  # def index
+  #   @quizzes = Quiz.all
+  # end
 
   # GET /quizzes/1
   # GET /quizzes/1.json
@@ -28,11 +28,11 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       if @quiz.save
-        format.html { redirect_to @quiz, notice: 'Quiz was successfully created.' }
-        format.json { render :show, status: :created, location: @quiz }
+        format.html { redirect_to edit_quiz_path(@quiz), notice: 'Quiz was successfully created.' }
+        # format.json { render :show, status: :created, location: @quiz }
       else
         format.html { render :new }
-        format.json { render json: @quiz.errors, status: :unprocessable_entity }
+        # format.json { render json: @quiz.errors, status: :unprocessable_entity }
       end
     end
   end
