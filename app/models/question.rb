@@ -1,6 +1,10 @@
 class Question < ApplicationRecord
 	has_many :answers
 
+	def answers_for_quiz(quiz)
+	    answers.where.not(id: quiz.discarted_answers.map(&:id))
+	end
+
 	def next_question
 	    @next_question ||= Question.where("id > ?", id).try(:first)
 	end

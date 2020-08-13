@@ -10,8 +10,7 @@
 	</div>
 	<div id="answers">
 		<%= hidden_field_tag 'answer_question_path', quiz_answer_question_path(@quiz, @question)  %>
-		<% @question.answers.each do |answer| %>
-
+		<% @question.answers_for_quiz(@quiz).each do |answer| %>
 			<div>
 				<% answered = selected_answer && selected_answer.id == answer.id %>
 				<%= radio_button_tag :answer, answer.id, answered %>
@@ -19,6 +18,17 @@
 			</div>
 		<% end %>
 	</div>
+</div>
+
+<br>
+<br>
+<div> 
+	<p>
+		Total wildcards: <%= @quiz.total_wildcards %>
+	</p>
+	<% if can_use_wildcard? %>
+		<%= link_to 'Use wildcard', quiz_use_wildcard_path(@quiz), method: :post %>
+	<% end %>
 </div>
 
 <br>
