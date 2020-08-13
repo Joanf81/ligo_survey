@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Quiz by <%= @quiz.user_name %></strong>
+</p>
+
+<div>
+	<div>
+		<p><%= @question.question %></p>
+	</div>
+	<div>
+		<% @question.answers.each do |answer| %>
+			<div>
+				<%= radio_button_tag :answer, answer.id %>
+				<%= label_tag "answer_#{answer.id}", answer.answer %>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+
+<%= link_to 'Back', root_path %>
