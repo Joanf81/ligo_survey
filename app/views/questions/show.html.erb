@@ -11,7 +11,7 @@
 		<p><%= @question.question %></p>
 	</div>
 	<div id="answers">
-		<%= hidden_field_tag 'answer_question_path', quiz_question_answer_question_path(@quiz, @question)  %>
+		<%= hidden_field_tag 'answer_question_path', quiz_answer_question_path(@quiz, @question)  %>
 		<% @question.answers.each do |answer| %>
 
 			<div>

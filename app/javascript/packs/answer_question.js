@@ -5,8 +5,9 @@ $(document).ready(function() {
 		  url: path,
 		  type: 'PUT',
 		  data: {"answer": { "id": $(this).val() }},
-		  fail: function(data) {
-		    alert('Error sending the answer');
+		  error: function(jqXHR, textStatus, errorThrown) {
+		  	let errorMessage = jqXHR.status + ': ' + jqXHR.responseJSON.error; 
+		    alert('Error - ' + errorMessage);
 		    location.reload();
 		  }
 		});
