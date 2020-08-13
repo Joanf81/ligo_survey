@@ -1,7 +1,5 @@
 <% selected_answer = get_selected_answer %>
 
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Quiz by <%= @quiz.user_name %></strong>
 </p>
@@ -33,9 +31,7 @@
 <% if next? %>
 	<%= link_to 'Next question', next_question_path %>
 <% else %>
-	<%= link_to 'Complete survey!', root_path %>
+	<%= link_to 'Complete quiz!', quiz_complete_path(@quiz) %>
 <% end %>
-
-
 
 <%= javascript_pack_tag 'answer_question' %>

@@ -18,4 +18,15 @@ class Quiz < ApplicationRecord
     		false
     	end
     end
+
+    def complete!
+        unless completed?
+            result = selected_answers.sum(:points)
+            update_column(:result, result)
+        end
+    end
+
+    def completed?
+        !result.nil?
+    end
 end

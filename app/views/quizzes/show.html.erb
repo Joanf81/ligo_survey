@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>User name:</strong>
-  <%= @quiz.user_name %>
+  <strong>Quiz by <%= @quiz.user_name %></strong>
 </p>
 
-show results here 
+<div> 
+	<p>
+		Your quiz result is: <%= @quiz.result %>
+	</p>
+</div>
 
-<%= link_to 'Back', root_path %>
+<%= link_to 'Create new quiz', root_path %>
