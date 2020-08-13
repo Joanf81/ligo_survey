@@ -1,47 +1,62 @@
 <% selected_answer = get_selected_answer %>
 
-<p>
-  <strong>Quiz by <%= @quiz.user_name %></strong>
-</p>
-
-<div>
-	<div>
-		<p><%= @question.question %></p>
-	</div>
-	<div id="answers">
-		<%= hidden_field_tag 'answer_question_path', quiz_answer_question_path(@quiz, @question)  %>
-		<% @question.answers_for_quiz(@quiz).each do |answer| %>
-			<div>
-				<% answered = selected_answer && selected_answer.id == answer.id %>
-				<%= radio_button_tag :answer, answer.id, answered %>
-				<%= label_tag "answer_#{answer.id}", answer.answer %>
+<div class="container">
+	<div class="row quiz-title">
+    	<div class="col-sm-12 quiz-title">
+    		<p class="text-center display-3">
+			  <strong>Quiz by <%= @quiz.user_name %></strong>
+			</p>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col-sm-2"></div>
+    	<div class="col-sm-7 quiz-title">
+    		<div class="question">
+				<h5>
+					<%= @question.question %>
+				</h5>
 			</div>
-		<% end %>
-	</div>
+			<div id="answers">
+				<%= hidden_field_tag 'answer_question_path', quiz_answer_question_path(@quiz, @question)  %>
+				<% @question.answers_for_quiz(@quiz).each do |answer| %>
+					<div>
+						<% answered = selected_answer && selected_answer.id == answer.id %>
+						<%= radio_button_tag :answer, answer.id, answered %>
+						<%= label_tag "answer_#{answer.id}", answer.answer %>
+					</div>
+				<% end %>
+			</div>
+    	</div>
+    	<div class="col-sm-3">
+    		<div class="text-center wildcards"> 
+				<p>
+					Total wildcards: <%= @quiz.total_wildcards %>
+				</p>
+				<% if can_use_wildcard? %>
+					<%= link_to 'Use wildcard', quiz_use_wildcard_path(@quiz), method: :post %>
+				<% end %>
+			</div>
+    	</div>
+    </div>
 </div>
-
-<br>
-<br>
-<div> 
-	<p>
-		Total wildcards: <%= @quiz.total_wildcards %>
-	</p>
-	<% if can_use_wildcard? %>
-		<%= link_to 'Use wildcard', quiz_use_wildcard_path(@quiz), method: :post %>
-	<% end %>
+<div class="row">
+    <div class="col-sm-3">
+    	<p class="text-center">
+	    	<% if prev? %>
+				<%= link_to '<- Previous question', previous_question_path %>
+			<% end %>
+		</p>
+    </div>
+    <div class="col-sm-6"></div>
+    <div class="col-sm-3">
+    	<p class="text-center">
+	    	<% if next? %>
+				<%= link_to 'Next question ->', next_question_path %>
+			<% else %>
+				<%= link_to 'Complete quiz!', quiz_complete_path(@quiz) %>
+			<% end %>
+		</p>
+    </div>
 </div>
-
-<br>
-<br>
-
-<% if prev? %>
-	<%= link_to 'Previous question', previous_question_path %>
-<% end %>
-<br>
-<% if next? %>
-	<%= link_to 'Next question', next_question_path %>
-<% else %>
-	<%= link_to 'Complete quiz!', quiz_complete_path(@quiz) %>
-<% end %>
 
 <%= javascript_pack_tag 'answer_question' %>

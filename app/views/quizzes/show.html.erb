@@ -1,11 +1,28 @@
-<p>
-  <strong>Quiz by <%= @quiz.user_name %></strong>
-</p>
-
-<div> 
-	<p>
-		Your quiz result is: <%= @quiz.result %>
-	</p>
+<div class="container">
+	<div class="row quiz-title">
+    	<div class="col-sm-12 quiz-title">
+    		<p class="text-center display-3">
+			  <strong>Quiz by <%= @quiz.user_name %></strong>
+			</p>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col-sm-2"></div>
+    	<div class="col-sm-8 quiz-title text-center">
+    		<h4 class="result">
+    			Your quiz result is: <%= @quiz.result %>
+    		</h4>
+    		<p>
+				Used wildcards: <%= @quiz.used_wildcards %>/<%= Quiz::MAX_WILDCARDS %>
+			</p>
+    	</div>
+    	<div class="col-sm-2"></div>
+    </div>
 </div>
-
-<%= link_to 'Create new quiz', root_path %>
+<div class="row">
+    <div class="col-sm-12">
+    	<p class="text-center">
+	    	<%= link_to 'Create new quiz', root_path %>
+		</p>
+    </div>
+</div>
