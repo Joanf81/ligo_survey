@@ -32,6 +32,7 @@ questions
   bundle install
   rake db:create
   rake db:migrate
+  yarn add bootstrap jquery popper.js
   rails server
  ```
  
