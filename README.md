@@ -30,6 +30,7 @@ questions
 4. Execute commnads:
 ```
   bundle install
+  yarn install --check-files
   rake db:create
   rake db:migrate
   yarn add bootstrap jquery popper.js
